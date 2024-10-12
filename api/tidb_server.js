@@ -31,7 +31,7 @@ const pool = mysql.createPool({
     password: 'fLmIu2N7ZScJ34ID',  // TiDB Password
     database: 'clothcrafters',  // Database name
     ssl: {
-        ca: fs.readFileSync('C:/Users/pandy/Downloads/isrgrootx1 (2).pem'),  // Path to your CA certificate
+        ca: process.env.SSL_CA_CERT  // Path to your CA certificate
     },
     connectionLimit: 10,  // Adjust the connection limit as per your need
 });
