@@ -25,11 +25,11 @@ const upload = multer({ storage: storage });
 
 // Database connection to TiDB Cloud
 const pool = mysql.createPool({
-    host: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',  // TiDB Host
+    host: process.env.DB_HOST,  // TiDB Host
     port: 4000,  // TiDB Port
-    user: '3VS8KKrRRQuo1j9.root',  // TiDB Username
-    password: 'fLmIu2N7ZScJ34ID',  // TiDB Password
-    database: 'clothcrafters',  // Database name
+    user: process.env.DB_USER,  // TiDB Username
+    password: process.env.DB_PASSWORD,  // TiDB Password
+    database: process.env.DB_NAME,  // Database name
     ssl: {
         ca: process.env.SSL_CA_CERT  // Path to your CA certificate
     },
