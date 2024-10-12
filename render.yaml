@@ -1,0 +1,19 @@
+# render.yaml
+services:
+  - type: web
+    name: clothcrafters_backend
+    env: node
+    plan: free  # You can change the plan to 'starter' or others based on your need
+    branch: main
+    buildCommand: "npm install"
+    startCommand: "npm start"  # Or "node tidb_server.js" if you run without npm
+    envVars:
+      - key: DB_HOST
+        value: $DB_HOST  # Environment variable set in Render dashboard
+      - key: DB_USER
+        value: $DB_USER  # Environment variable set in Render dashboard
+      - key: DB_PASSWORD
+        value: $DB_PASSWORD  # Environment variable set in Render dashboard
+      - key: DB_NAME
+        value: $DB_NAME  # Environment variable set in Render dashboard
+    autoDeploy: true  # Automatically redeploy on every push to the branch
