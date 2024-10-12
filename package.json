@@ -1,4 +1,9 @@
 {
+  "name": "clothcrafters_backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node api/tidb_server.js"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.20.0",
