@@ -106,7 +106,7 @@ Here’s an overview of the main API routes available:
     npm start
     ```
 
-The backend will be running at `http://localhost:3000` by default.
+The backend will be running at `https://clothcrafters-backend.onrender.com` by default.
 
 ---
 
@@ -125,4 +125,4 @@ The backend will be running at `http://localhost:3000` by default.
 You can use **Postman** or **curl** to test the backend API. For example:
 
 ```bash
-curl -X GET http://localhost:3000/customers
+curl -X GET https://clothcrafters-backend.onrender.com/customers
