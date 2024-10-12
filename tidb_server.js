@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');  // To read the CA certificate
 
 const app = express();
 app.use(express.json());
@@ -22,12 +23,17 @@ const storage = multer.diskStorage({
 // Initialize Multer with the storage configuration
 const upload = multer({ storage: storage });
 
-// Database connection
+// Database connection to TiDB Cloud
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '5fdkyi2mas',
-    database: 'clothcrafters'
+    host: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',  // TiDB Host
+    port: 4000,  // TiDB Port
+    user: '3VS8KKrRRQuo1j9.root',  // TiDB Username
+    password: 'fLmIu2N7ZScJ34ID',  // TiDB Password
+    database: 'clothcrafters',  // Database name
+    ssl: {
+        ca: fs.readFileSync('C:/Users/pandy/Downloads/isrgrootx1 (2).pem'),  // Path to your CA certificate
+    },
+    connectionLimit: 10,  // Adjust the connection limit as per your need
 });
 
 // Helper function to execute SQL queries
@@ -38,15 +44,17 @@ const query = (sql, params) => new Promise((resolve, reject) => {
     });
 });
 
-// Test the database connection
+// Test the TiDB Cloud connection
 pool.getConnection((err, connection) => {
     if (err) {
-        console.error('Error connecting to the database:', err.message);
+        console.error('Error connecting to TiDB Cloud:', err.message);
         return;
     }
-    console.log('Connected to the MySQL database.');
+    console.log('Connected to TiDB Cloud successfully!');
     connection.release();  // Release the connection back to the pool
 });
+
+// Your existing endpoints and Multer setup remain unchanged here...
 
 // User registration endpoint
 app.post('/register', async (req, res) => {
@@ -92,6 +100,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
 // Insert or update measurements for a user
 app.post('/measurements', async (req, res) => {
     const { email, chest_size, waist_size, hip_size, height, shoulder_width } = req.body;
@@ -119,7 +128,7 @@ app.post('/measurements', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
+// and so on 
 // Get measurements for a user by email
 app.get('/measurements/:email', async (req, res) => {
     const { email } = req.params;
@@ -807,4 +816,4 @@ app.get('/ping', (req, res) => {
 
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log('Server running on port ${PORT}'));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
