@@ -126,3 +126,5 @@ You can use **Postman** or **curl** to test the backend API. For example:
 
 ```bash
 curl -X GET https://clothcrafters-backend.onrender.com/customers
+
+These are the steps to be followed to use the application with ease.
