@@ -77,7 +77,7 @@ Here’s an overview of the main API routes available:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Akshat-Pandya/ClothCrafters-backend.git
+    git clone https://github.com/Drashti-Agrawal/ClothCrafters-Backend.git
     ```
 
 2. Navigate to the project directory:
